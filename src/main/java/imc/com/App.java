@@ -2,6 +2,7 @@ package imc.com;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
@@ -78,6 +79,7 @@ public class App
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
+
             if (rset.next())
             {
                 Employee emp = new Employee();
@@ -111,6 +113,32 @@ public class App
                             + "Manager: " + emp.manager + "\n");
         }
     }
+    public ArrayList<Employee> getEmployeeList() {
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+
+        String query = "SELECT emp_no, first_name, last_name FROM employees";
+
+        try (Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            int i=3;
+            while (rs.next() && i>=3) {
+                Employee emp = new Employee();
+                emp.emp_no = rs.getInt("emp_no");
+                emp.first_name = rs.getString("first_name");
+                emp.last_name = rs.getString("last_name");
+
+                System.out.println("Employee No: " + emp.emp_no);
+                employeeArrayList.add(emp);
+                i--;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving employee list: " + e.getMessage());
+        }
+
+        return employeeArrayList;
+    }
+
     public static void main(String[] args)
     {
 //        try
@@ -186,6 +214,10 @@ public class App
             System.out.println("After connecting");
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
+            System.out.println("----");
+            ArrayList<Employee>dimpliest=a.getEmployeeList();
+            System.out.println("++++++++++++++++++++++");
+           System.out.println("empcount ++++++++++"+dimpliest.get(3));
             a.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
