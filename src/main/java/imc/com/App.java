@@ -121,7 +121,7 @@ public class App
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             int i=3;
-            while (rs.next() && i>=3) {
+            while (rs.next() && i<=3) {
                 Employee emp = new Employee();
                 emp.emp_no = rs.getInt("emp_no");
                 emp.first_name = rs.getString("first_name");
@@ -130,6 +130,8 @@ public class App
                 System.out.println("Employee No: " + emp.emp_no);
                 employeeArrayList.add(emp);
                 i--;
+                if(i==0)
+                    break;
             }
 
         } catch (SQLException e) {
