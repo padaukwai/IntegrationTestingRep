@@ -101,19 +101,31 @@ public class App
     public void displayEmployee(Employee emp)
     {
         System.out.println("display function");
-        if (emp != null)
-        {
-            System.out.println(
-                    emp.emp_no + " "
-                            + emp.first_name + " "
-                            + emp.last_name + "\n"
-                            + emp.title + "\n"
-                            + "Salary:" + emp.salary + "\n"
-                            + emp.dept_name + "\n"
-                            + "Manager: " + emp.manager + "\n");
+
+
+        try {
+            if (emp != null && emp.emp_no!=0)
+                {
+                    System.out.println(
+                            emp.emp_no + " "
+                                    + emp.first_name + " "
+                                    + emp.last_name + "\n"
+                                    + emp.title + "\n"
+                                    + "Salary:" + emp.salary + "\n"
+                                    + emp.dept_name + "\n"
+                                    + "Manager: " + emp.manager + "\n");
+                    System.out.println("Data Exists");
+                }
+
+        } catch (Exception e) {
+            System.out.println("Exception Occurs");
+            //throw new RuntimeException(e);
         }
     }
-    public ArrayList<Employee> getEmployeeList() {
+       // else
+           // System.out.println("Information is null, This Employee doesn't exist");
+  //  }
+    public  ArrayList<Employee> getEmployeeList(int count) {
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
         String query = "SELECT emp_no, first_name, last_name FROM employees";
@@ -121,7 +133,7 @@ public class App
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             int i=3;
-            while (rs.next() && i<=3) {
+            while (rs.next() && count<=3) {
                 Employee emp = new Employee();
                 emp.emp_no = rs.getInt("emp_no");
                 emp.first_name = rs.getString("first_name");
@@ -129,8 +141,8 @@ public class App
 
                 System.out.println("Employee No: " + emp.emp_no);
                 employeeArrayList.add(emp);
-                i--;
-                if(i==0)
+                count--;
+                if(count==0)
                     break;
             }
 
@@ -139,6 +151,15 @@ public class App
         }
 
         return employeeArrayList;
+    }
+    public void displayEmplist(ArrayList<Employee> employeeArrayList)
+    {
+        System.out.println("size is "+employeeArrayList.size());
+        while(employeeArrayList.size()>0)
+        {
+            int index=employeeArrayList.size()-1;
+            System.out.println("Data is"+employeeArrayList.get(index));
+        }
     }
 
     public static void main(String[] args)
@@ -217,11 +238,8 @@ public class App
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
             System.out.println("----");
-            ArrayList<Employee>dimpliest=a.getEmployeeList();
-            System.out.println("++++++++++++++++++++++");
-           System.out.println("emp info index 0 ++++++++++"+dimpliest.get(0));
-            System.out.println("emp info index 1 ++++++++++"+dimpliest.get(1));
-            System.out.println("emp info index 2 ++++++++++"+dimpliest.get(2));
+          ArrayList<Employee>employeeArrayList= a.getEmployeeList(3);
+           a.displayEmplist(employeeArrayList);
             a.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
