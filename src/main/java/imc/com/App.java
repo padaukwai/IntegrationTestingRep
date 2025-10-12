@@ -217,7 +217,9 @@ public class App
             System.out.println("----");
             ArrayList<Employee>dimpliest=a.getEmployeeList();
             System.out.println("++++++++++++++++++++++");
-           System.out.println("empcount ++++++++++"+dimpliest.get(3));
+           System.out.println("emp info index 0 ++++++++++"+dimpliest.get(0));
+            System.out.println("emp info index 1 ++++++++++"+dimpliest.get(1));
+            System.out.println("emp info index 2 ++++++++++"+dimpliest.get(2));
             a.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
