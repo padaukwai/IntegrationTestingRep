@@ -16,7 +16,7 @@ jobs:
           java-version: '19'
           distribution: 'adopt'
       - name: Unit Tests
-        run: mvn -Dtest=imu.com.AppTest test
+        run: mvn -Dtest=imc.com.AppTest test
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
