@@ -19,8 +19,8 @@ jobs:
         run: mvn package -DskipTests
       - name: Unit Tests
         run: mvn -Dtest=imc.com.AppTest test
-      - name: Start Docker Compose
-        run: docker compose up --abort-on-container-exit
+    #  - name: Start Docker Compose
+    #    run: docker compose up --abort-on-container-exit
      # - name: Package and Run docker compose
      #   run:
       #     mvn package -DskipTests
