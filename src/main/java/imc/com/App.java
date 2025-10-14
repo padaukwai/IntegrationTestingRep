@@ -133,7 +133,7 @@ public class App
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             int i=3;
-            while (rs.next() && count<=3) {
+            while (rs.next() && count>0) {
                 Employee emp = new Employee();
                 emp.emp_no = rs.getInt("emp_no");
                 emp.first_name = rs.getString("first_name");
