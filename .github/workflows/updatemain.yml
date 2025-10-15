@@ -1,9 +1,9 @@
-name: A workflow for Unit Testing with DB App
+name: A workflow for Unit Testing App
 on: push
 
 jobs:
   build:
-    name: UNit Testing action
+    name: Unit Testing action
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
