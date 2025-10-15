@@ -1,9 +1,9 @@
-name: A workflow for Unit Testing with DB App
+name: A workflow for Unit Testing App
 on: push
 
 jobs:
   build:
-    name: UNit Testing action
+    name: Unit Testing action
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,8 +17,8 @@ jobs:
           distribution: 'adopt'
       - name: Unit Tests
         run: mvn -Dtest=imc.com.AppTest test
-      - name: Package
+      - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
-          #docker compose up --abort-on-container-exit
+          docker-compose up --abort-on-container-exit
 
