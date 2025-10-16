@@ -12,16 +12,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AppIntegrationTest
 {
-    static App app;
+    App app;
+     MySQL_Test mytest;
 
-    @BeforeAll
+    @BeforeEach
+    void setUp() {
+        app = new App();
+        app.connect("localhost:33060", 10000);
+    }
+  /*  @BeforeAll
     static void init()
     {
         app = new App();
        // app.connect("localhost:33060", 30000);
         app.connect("db:3306",30000);
 
-    }
+    }*/
 
     @Test
     void testGetEmployee()
