@@ -1,4 +1,4 @@
 FROM openjdk:19
-COPY ./target/ClonefromLab02R4forunittesting-1-jar-with-dependencies.jar /tmp
+COPY ./target/seMethods.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar","ClonefromLab02R4forunittesting-1-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-jar", "seMethods.jar", "db:3306", "10000"]
