@@ -243,7 +243,7 @@ public class App
             a.displayEmployee(emp);
             System.out.println("----");
 
-          ArrayList<Employee>employeeArrayList= a.getEmployeeList(3);
+          ArrayList<Employee>employeeArrayList= a.getEmployeeList(2);
           System.out.println(employeeArrayList.size()+"ssssssssssssssssssssss");
            a.displayEmplist(employeeArrayList);
             a.disconnect();
