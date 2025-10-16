@@ -19,7 +19,7 @@ public class AppIntegrationTest
     {
         app = new App();
        // app.connect("localhost:33060", 30000);
-        app.connect("db:3306", 30000);
+        app.connect("db:3306",30000);
 
     }
 
