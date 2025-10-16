@@ -40,7 +40,7 @@ jobs:
           docker run --name employees -dp 33060:3306 database
           echo "Waiting for database to be ready..."
           for i in {1..30}; do
-          docker exec employees mysqladmin ping -uroot -pmy-secret-pw --silent && break
+          docker exec employees mysqladmin ping -uroot -pexample --silent && break
           sleep 1
           done
           mvn -Dtest=imc.com.AppIntegrationTest test
