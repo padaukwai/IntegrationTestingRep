@@ -34,14 +34,20 @@ jobs:
         with:
           java-version: '19'
           distribution: 'adopt'
-      - name: Integration Tests
-        run: |
+      -  name: Integration Tests
+         run: |
           docker build -t database ./db 
           docker run --name employees -dp 33060:3306 database
+          echo "Waiting for database to be ready..."
+          for i in {1..30}; do
+          docker exec employees mysqladmin ping -uroot -pmy-secret-pw --silent && break
+          sleep 1
+          done
           mvn -Dtest=imc.com.AppIntegrationTest test
           docker stop employees
           docker rm employees
-          docker image rm database                    
+          docker image rm database
+             
 
   build:
     name: Build and Start Using docker-compose
