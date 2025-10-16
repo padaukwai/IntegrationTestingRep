@@ -275,11 +275,13 @@ public class App
           /*  App a = new App();
             a.connect();*/
             App a = new App();
-            if (args.length < 1) {
+            a.connect("db:3306", 10000);
+          /*  if (args.length < 1) {
+                //a.connect("localhost:33060", 10000);
                 a.connect("localhost:33060", 10000);
             } else {
                 a.connect(args[0], Integer.parseInt(args[1]));
-            }
+            }*/
             System.out.println("After connecting");
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
