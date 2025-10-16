@@ -132,8 +132,8 @@ public class App
 
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
-            int i=3;
-            while (rs.next() && count>0) {
+           // int i=3;
+            while (rs.next() && count>0) {//3//2//1
                 Employee emp = new Employee();
                 emp.emp_no = rs.getInt("emp_no");
                 emp.first_name = rs.getString("first_name");
@@ -141,7 +141,7 @@ public class App
 
                 System.out.println("Employee No: " + emp.emp_no);
                 employeeArrayList.add(emp);
-                count--;
+                count--;//2//1//0
                 if(count==0)
                     break;
             }
@@ -154,11 +154,15 @@ public class App
     }
     public void displayEmplist(ArrayList<Employee> employeeArrayList)
     {
+        int index=0;
         System.out.println("size is "+employeeArrayList.size());
-        while(employeeArrayList.size()>0)
+        int size=employeeArrayList.size();
+       while(size>0)
         {
-            int index=employeeArrayList.size()-1;
-            System.out.println("Data is"+employeeArrayList.get(index));
+           size--;
+            System.out.print("Data is"+employeeArrayList.get(index).first_name);
+            System.out.println("Data is"+employeeArrayList.get(index).last_name);
+            index++;
         }
     }
 
@@ -238,7 +242,9 @@ public class App
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
             System.out.println("----");
+
           ArrayList<Employee>employeeArrayList= a.getEmployeeList(3);
+          System.out.println(employeeArrayList.size()+"ssssssssssssssssssssss");
            a.displayEmplist(employeeArrayList);
             a.disconnect();
         } catch (Exception e) {
