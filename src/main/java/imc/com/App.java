@@ -54,7 +54,7 @@ public class App
             System.exit(-1);
         }
 
-        int retries = 15;
+        int retries = 5;
         boolean shouldWait = false;
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
