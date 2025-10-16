@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppIntegrationTest
 {
     App app;
-     MySQL_Test mytest;
+    
 
     @BeforeEach
     void setUp() {
