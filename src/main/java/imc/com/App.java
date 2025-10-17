@@ -54,12 +54,13 @@ public class App
             System.exit(-1);
         }
 
-        int retries = 5;
+        int retries = 10;
         boolean shouldWait = false;
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                if (shouldWait) {
+               // if (shouldWait)
+                {
                     // Wait a bit for db to start
                     Thread.sleep(delay);
                 }
@@ -283,11 +284,11 @@ public class App
                 a.connect(args[0], Integer.parseInt(args[1]));
             }*/
             // Connect to database
-            if(args.length < 1){
-                a.connect("localhost:33060", 0);
-            }else{
-                a.connect("db:3306", 10000);
-            }
+           // if(args.length < 1){
+            //    a.connect("localhost:33060", 0);
+          //  }else{
+                a.connect("db:3306", 30000);
+           // }
             System.out.println("After connecting");
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
