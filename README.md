@@ -4,7 +4,7 @@
 ![Master Build Status](https://github.com/padaukwai/IntegrationTestingRep/actions/workflows/updatemain.yml/badge.svg?branch=master)
 
 ![Develop Build Status](https://github.com/padaukwai/IntegrationTestingRep/actions/workflows/updatemain.yml/badge.svg?branch=develop)
-
-[![GitHub release](https://img.shields.io/github/releases/padaukwai/REPO.svg)(https://github.com/padaukwai/IntegrationTestingRep/releases/latest)
+![GitHub release](https://github.com/padaukwai/IntegrationTestingRep/actions/workflows/updatemain.yml/badge.svg?branch=releases)
+[![GitHub release](https://img.shields.io/github/release/padaukwai/REPO.svg(https://github.com/padaukwai/IntegrationTestingRep/releases/latest)
 
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
