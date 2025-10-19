@@ -1,6 +1,10 @@
 package imc.com;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -158,6 +162,79 @@ public class App
             //throw new RuntimeException(e);
         }
     }
+    public ArrayList<Employee> getSalariesByRole(String rolename)
+    {
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        //ArrayList<Employee> employeeArrayList = new ArrayList<>();
+
+        String query = "SELECT employees.emp_no, employees.first_name, employees.last_name,\n" +
+                "titles.title, salaries.salary, departments.dept_name, dept_manager.emp_no\n" +
+                "FROM employees, salaries, titles, departments, dept_emp, dept_manager\n" +
+                "WHERE employees.emp_no = salaries.emp_no\n" +
+                "  AND salaries.to_date = '9999-01-01'\n" +
+                "  AND titles.emp_no = employees.emp_no\n" +
+                "  AND titles.to_date = '9999-01-01'\n" +
+                "  AND dept_emp.emp_no = employees.emp_no\n" +
+                "  AND dept_emp.to_date = '9999-01-01'\n" +
+                "  AND departments.dept_no = dept_emp.dept_no\n" +
+                "  AND dept_manager.dept_no = dept_emp.dept_no\n" +
+                "  AND dept_manager.to_date = '9999-01-01'\n" +
+                "  AND titles.title = 'Manager'";
+
+        try (Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            // int i=3;
+            while (rs.next()) {//3//2//1
+                Employee emp = new Employee();
+                emp.emp_no = rs.getInt("emp_no");
+                emp.first_name = rs.getString("first_name");
+                emp.last_name = rs.getString("last_name");
+
+                System.out.println("Employee No: " + emp.emp_no);
+
+                employeeArrayList.add(emp);
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving employee list: " + e.getMessage());
+        }
+
+        return employeeArrayList;
+    }
+    /**
+     * Outputs to Markdown
+     *
+     * @param employees
+     */
+    public void outputEmployees(ArrayList<Employee> employees, String filename) {
+        // Check employees is not null
+        if (employees == null) {
+            System.out.println("No employees");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        // Print header
+        sb.append("| Emp No | First Name | Last Name | Title | Salary | Department |                    Manager |\r\n");
+        sb.append("| --- | --- | --- | --- | --- | --- | --- |\r\n");
+        // Loop over all employees in the list
+        for (Employee emp : employees) {
+            if (emp == null) continue;
+            sb.append("| " + emp.emp_no + " | " +
+                    emp.first_name + " | " + emp.last_name + " | " +
+                    emp.title + " | " + emp.salary + " | "
+                    + emp.dept_name + " | " + emp.manager + " |\r\n");
+        }
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new                                 File("./reports/" + filename)));
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
        // else
            // System.out.println("Information is null, This Employee doesn't exist");
   //  }
@@ -288,6 +365,10 @@ public class App
             }else{
                 a.connect("db:3306", 10000);
             }
+            System.out.println("Before calling**************");
+            ArrayList<Employee> employees = a.getSalariesByRole("Manager");
+            System.out.println("Manager Role count======="+employees.size());
+            a.outputEmployees(employees, "ManagerSalaries.md");
             System.out.println("After connecting");
             Employee emp = a.getEmployee(255530);
             a.displayEmployee(emp);
