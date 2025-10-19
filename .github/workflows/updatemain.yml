@@ -74,7 +74,7 @@ jobs:
             automatic_release_tag: "latest"
             files: |
               ./target/*.jar
-              - name: Copy Output
+      - name: Copy Output
         run: docker container cp sem_employees_app_1:./tmp/reports ./
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
