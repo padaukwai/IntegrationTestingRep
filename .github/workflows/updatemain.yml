@@ -74,6 +74,8 @@ jobs:
             automatic_release_tag: "latest"
             files: |
               ./target/*.jar
+      - name: Start containers
+        run: docker compose -p dbandunittesting up -d
       - name: Copy Output
         run: docker container cp dbandunittesting-app-1:./tmp/reports ./
       - name: Deploy
