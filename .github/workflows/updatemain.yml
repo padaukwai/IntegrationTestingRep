@@ -79,7 +79,7 @@ jobs:
       - name: Run tests (container stays alive)
         run: docker compose -p dbandunittesting up -d app
       - name: Copy Output
-        run: docker container cp dbandunittesting-app-1:/tmp/reports ./
+        run: docker container cp dbandunittesting-app-1:/tmp/reports ./ || true
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
