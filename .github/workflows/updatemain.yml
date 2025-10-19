@@ -76,6 +76,8 @@ jobs:
               ./target/*.jar
       - name: Start containers
         run: docker compose -p dbandunittesting up -d
+      - name: Run tests (container stays alive)
+        run: docker compose -p dbandunittesting up -d app
       - name: Copy Output
         run: docker container cp dbandunittesting-app-1:/tmp/reports ./
       - name: Deploy
