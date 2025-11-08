@@ -43,7 +43,7 @@ jobs:
           docker rm employees
           docker image rm database
       - name: CodeCov
-        uses: codecov/codecov-action@v4.0.1
+        uses: codecov/codecov-action@v5.5.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
           #files: ./target/site/jacoco/jacoco.xml
