@@ -12,5 +12,9 @@ COPY test_db/*.dump /tmp/
 COPY test_db/employees.sql /docker-entrypoint-initdb.d
 # Set the root password
 ENV MYSQL_ROOT_PASSWORD example
+# Grant root remote access
+RUN echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'example' WITH GRANT OPTION;" > /docker-entrypoint-initdb.d/remote-access.sql \
+ && echo "FLUSH PRIVILEGES;" >> /docker-entrypoint-initdb.d/remote-access.sql
+
 
 
