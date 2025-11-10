@@ -1,20 +1,16 @@
-# Use the latest MySQL image
+# Use latest MySQL server
 FROM mysql/mysql-server:latest
-# Set the working directory
+
+# Set working directory
 WORKDIR /tmp
-# Copy all the files to the working directory of the container
+
+# Copy SQL files for initial data
 COPY test_db/*.sql /tmp/
 COPY test_db/*.dump /tmp/
-# Copy the main SQL file to docker-entrypoint-initdb.d.
-# Scripts and SQL files in this folder are executed on container startup.
-# This is specific to MySQL.
+COPY test_db/employees.sql /docker-entrypoint-initdb.d/
 
-COPY test_db/employees.sql /docker-entrypoint-initdb.d
-# Set the root password
-ENV MYSQL_ROOT_PASSWORD example
-# Grant root remote access
-RUN echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'example' WITH GRANT OPTION;" > /docker-entrypoint-initdb.d/remote-access.sql \
- && echo "FLUSH PRIVILEGES;" >> /docker-entrypoint-initdb.d/remote-access.sql
+# Set root password and create root@% for remote access
+ENV MYSQL_ROOT_PASSWORD=example
 
-
-
+# Add remote access grant script (executed on container startup)
+COPY test_db/remote-access.sql /docker-entrypoint-initdb.d/
