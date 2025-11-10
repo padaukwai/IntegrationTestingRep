@@ -31,7 +31,7 @@ jobs:
             verbose: true # optional (default = false)
             #slug: padaukwai/IntegrationTestingRep
     DBTest:
-      - name: Build and Test
+        name: Build and Test
         jobs:
               build:
                runs-on: ubuntu-latest
