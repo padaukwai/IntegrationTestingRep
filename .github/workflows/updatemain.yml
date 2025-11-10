@@ -49,24 +49,23 @@ jobs:
           --health-timeout=5s
           --health-retries=5
           steps:
-      - uses: actions/checkout@v4
+          - uses: actions/checkout@v4
+          -name: Wait for MySQL to be ready
+          run: sleep 20
 
-      - name: Wait for MySQL to be ready
-        run: sleep 20
-
-      - name: Test database connection
+          - name: Test database connection
         run: |
           sudo apt-get install -y mysql-client
           mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW DATABASES;"
 
-      - name: Run app
-        env:
+          - name: Run app
+          env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root
           DB_PASS: example
           DB_NAME: employees
-        run: |
+          run: |
           npm install
           npm start
 
