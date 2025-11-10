@@ -49,7 +49,7 @@ public class App
             }
         }
     }*/
-    public void connect(String location, int delay) {
+   /* public void connect(String location, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -85,7 +85,43 @@ public class App
             }
         }
     }
+*/
+    public void connect(String location, int delay) {
+        try {
+            // Load Database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Could not load SQL driver");
+            System.exit(-1);
+        }
 
+        int retries = 10;
+        boolean shouldWait = false;
+        for (int i = 0; i < retries; ++i) {
+            System.out.println("Connecting to database...");
+            try {
+                if (shouldWait) {
+                    // Wait a bit for db to start
+                    Thread.sleep(delay);
+                }
+
+                // Connect to database
+                con = DriverManager.getConnection("jdbc:mysql://" + location
+                                + "/employees?allowPublicKeyRetrieval=true&useSSL=false",
+                        "root", "example");
+                System.out.println("Successfully connected");
+                break;
+            } catch (SQLException sqle) {
+                System.out.println("Failed to connect to database attempt " + i);
+                System.out.println(sqle.getMessage());
+
+                // Let's wait before attempting to reconnect
+                shouldWait = true;
+            } catch (InterruptedException ie) {
+                System.out.println("Thread interrupted? Should not happen.");
+            }
+        }
+    }
     /**
      * Disconnect from the MySQL database.
      */
@@ -352,6 +388,7 @@ public class App
           /*  App a = new App();
             a.connect();*/
             App a = new App();
+           // a.connect("localhost:33060", 30000);
           //  a.connect("db:3306", 10000);
           /*  if (args.length < 1) {
                 //a.connect("localhost:33060", 10000);
@@ -360,10 +397,10 @@ public class App
                 a.connect(args[0], Integer.parseInt(args[1]));
             }*/
             // Connect to database
-            if(args.length < 1){
-                a.connect("localhost:33060", 0);
-            }else{
-                a.connect("db:3306", 10000);
+            if (args.length < 1) {
+                a.connect("localhost:33060", 10000);
+            } else {
+                a.connect(args[0], Integer.parseInt(args[1]));
             }
             System.out.println("Before calling**************");
             ArrayList<Employee> employees = a.getSalariesByRole("Manager");

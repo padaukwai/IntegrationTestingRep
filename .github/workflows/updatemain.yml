@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   UnitTests:
@@ -23,12 +24,12 @@ jobs:
       - name: CodeCov
         uses: codecov/codecov-action@v5.5.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
-          files: ./target/site/jacoco/jacoco.xml
-          #files: ./coverage.xml
-          flags: Unit Tests # optional
-          verbose: true # optional (default = false)
-          #slug: padaukwai/IntegrationTestingRep
+            token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
+            files: ./target/site/jacoco/jacoco.xml
+            #files: ./coverage.xml
+            flags: Unit Tests # optional
+            verbose: true # optional (default = false)
+            #slug: padaukwai/IntegrationTestingRep
 
   IntegrationTests:
     name: Integration Tests
@@ -54,12 +55,12 @@ jobs:
       - name: CodeCov
         uses: codecov/codecov-action@v5.5.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
-          files: ./target/site/jacoco/jacoco.xml
-          #files: ./coverage.xml
-          flags: Integration Tests # optional
-          verbose: true # optional (default = false)
-          slug: padaukwai/IntegrationTestingRep
+            token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
+            files: ./target/site/jacoco/jacoco.xml
+            #files: ./coverage.xml
+            flags: Integration Tests # optional
+            verbose: true # optional (default = false)
+            #slug: padaukwai/IntegrationTestingRep
   build:
     name: Build and Start Using docker-compose
     runs-on: ubuntu-latest
@@ -72,7 +73,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
@@ -94,4 +95,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: reports # The branch the action should deploy to.
-          folder: reports # The folder we are copy
+          folder: reports # The folder we are copying
