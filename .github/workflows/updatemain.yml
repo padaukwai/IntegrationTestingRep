@@ -30,6 +30,49 @@ jobs:
             flags: Unit Tests # optional
             verbose: true # optional (default = false)
             #slug: padaukwai/IntegrationTestingRep
+  DBTest:
+    name: Build and Test
+
+    on: [push]
+
+  jobs:
+      build:
+       runs-on: ubuntu-latest
+      services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: example
+          MYSQL_DATABASE: employees
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for MySQL to be ready
+        run: sleep 20
+
+      - name: Test database connection
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW DATABASES;"
+
+      - name: Run app
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USER: root
+          DB_PASS: example
+          DB_NAME: employees
+        run: |
+          npm install
+          npm start
+
 
   IntegrationTests:
     name: Integration Tests
