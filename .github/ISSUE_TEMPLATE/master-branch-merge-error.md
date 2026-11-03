@@ -1,9 +1,10 @@
 ---
-name: Bug report Creating
+name: Master Branch Merge Error
 about: Create a report to help us improve
 title: ''
-labels: ''
-assignees: ''
+labels: bug
+assignees: padaukwai
+type: Bug
 
 ---
 
