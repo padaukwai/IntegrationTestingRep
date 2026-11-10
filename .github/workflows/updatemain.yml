@@ -94,11 +94,11 @@ jobs:
         run: |
           mvn package -DskipTests
           docker compose up --abort-on-container-exit
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: "marvinpinto/action-automatic-releases@latestr2"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "latest"
+          automatic_release_tag: "latestr2"
           files: |
             ./target/*.jar
       - name: Start containers
