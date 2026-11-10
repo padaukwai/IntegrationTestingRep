@@ -94,13 +94,18 @@ jobs:
         run: |
           mvn package -DskipTests
           docker compose up --abort-on-container-exit
-      - uses: "marvinpinto/action-automatic-releases@latestr2"
+      
+      - name: Create Automatic Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          automatic_release_tag: "latestr2"
-          files: |
-            ./target/*.jar
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            prerelease: true
+            automatic_release_tag: release-${{ github.run_number }}
+            title: Development Build ${{ github.run_number }}
+            files: |
+                    ./target/*.jar
+
       - name: Start containers
         run: docker compose -p dbandunittesting up -d
       - name: Run tests (container stays alive)
