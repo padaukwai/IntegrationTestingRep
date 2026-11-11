@@ -106,4 +106,16 @@ jobs:
           automatic_release_tag: "latest"
           files: |
             ./target/*.jar
+      - name: Start containers
+        run: docker compose -p dbandunittesting up -d
+      - name: Run tests (container stays alive)
+        run: docker compose -p dbandunittesting up -d app
+      - name: Copy Output
+        run: docker container cp dbandunittesting-app-1:/tmp/reports ./ || true
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: reports # The branch the action should deploy to.
+          folder: reports # The folder we are copying
+
      
