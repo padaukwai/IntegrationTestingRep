@@ -29,6 +29,11 @@ jobs:
           distribution: 'temurin'
       - name: Unit Tests
         run: mvn -Dtest=imc.com.AppTest test
+        
+      - name: Import Codecov GPG public key
+        run: |
+          curl -fsSL https://keybase.io/codecovsecops/pgp_keys.asc | gpg --import
+          gpg --fingerprint ED779869
       - name: CodeCov
         uses: codecov/codecov-action@v5.5.1
         with:
