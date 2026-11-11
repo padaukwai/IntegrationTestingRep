@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
       - name: Unit Tests
         run: mvn -Dtest=imc.com.AppTest test
-      - name: CodeCov
+      - name: CodeCov Result
         uses: codecov/codecov-action@v5.5.1
         with:
             token: ${{ secrets.CODECOV_TOKEN }} # now required for public repos too
